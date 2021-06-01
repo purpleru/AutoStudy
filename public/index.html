@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+    <title>自动学习 - 快速完成学习任务!</title>
+    <link rel="stylesheet" href="/css/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <style>
+        body {
+            background-color: #f8f8f8;
+        }
+        
+        #main {
+            max-width: 550px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        
+        #loginSuccess button:first-child {
+            margin-bottom: 10px;
+        }
+        
+        .app {
+            padding: 0 15px;
+        }
+        /* .radio-inline input[type=radio]::before {
+            display: block;
+            content: '';
+            width: 14px;
+            height: 14px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 1px solid #666;
+        } */
+    </style>
+</head>
+
+<body>
+
+    <div id="main">
+        <nav class="navbar navbar-default">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" onclick="alert('欢迎使用自动学习Assistant!')" data-toggle="collapse" data-target="#navs" aria-expanded="false">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                <a class="navbar-brand" href="./">自动学习</a>
+            </div>
+
+        </nav>
+
+        <div class="app">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Message</h3>
+                </div>
+                <div class="panel-body">
+                    时间从来不说话，却回答了所有问题！
+                </div>
+
+            </div>
+            <div class="alert alert-info" role="alert">
+                <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> 欢迎使用网易云音乐一键打卡助你账号快速升级。
+                <a href="https://wgudu.lanzous.com/iMO7Pnqhywh" class="alert-link">立即下载</a>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">登陆</h3>
+                </div>
+                <div class="panel-body">
+                    <form id="login">
+                        <!-- 错误信息 -->
+                        <div class="alert alert-danger alert-success" role="alert" id="msg" style="display: none;">
+                            <span class="glyphicon glyphicon-exclamation-sign glyphicon-ok" aria-hidden="true"></span>
+                            <span data-msg="msg"></span>
+                        </div>
+                        <!-- 成功信息 -->
+                        <!-- <div class="alert alert-success" role="alert">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            <span class="sr-only">success:</span> 欢迎：孤独的小丑,使用本网站！
+                        </div> -->
+                        <div class="form-group">
+                            <label for="user">账号：</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                <input type="text" class="form-control" placeholder="请输入账号" name="user" id="user" value="">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="password">密码：</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                <input type="password" id="password" class="form-control" placeholder="密码" name="pwd" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group my">
+                            <label>登陆平台：</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="type" checked value="lemon"> 柠檬学堂
+                              </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="type" value="chaoxing"> 超星（学习通）
+                              </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">登 陆</button>
+
+                        <div id="loginSuccess" style="display: none;">
+                            <button type="button" class="btn btn-success btn-block" data-event="autoPlay">立即刷取</button>
+                            <button type="button" class="btn btn-danger btn-block" data-event="loginOut">退出登陆</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-success">
+
+                <div class="panel-heading bg-primary">
+                    <h3 class="panel-title">使用说明:</h3>
+                </div>
+                <div class="panel-body">
+                    <p>联系方式微信：wx_v988</p>
+                    <!-- <div>PS:在线接单(快手业务,QQ业务,抖音业务,表白网站等等)</div> -->
+                    <div>个人博客:<a href="http://www.wgudu.com/">孤独博客</a></div>
+                </div>
+                <div class="list-group">
+                    <a href="javascript:;" class="list-group-item">1. 使用本程序能够帮助你快速完成学习任务。</a>
+                    <a href="http://site.wencaischool.net/gzcjzyxy/console/" class="list-group-item">2. 如果忘记密码可以前往 <ins>官方网站</ins> 进行密码重置。</a>
+                    <a href="javascript:;" class="list-group-item">3. 严禁倒卖或贩卖本程序。</a>
+                    <a href="javascript:;" class="list-group-item">4. 使用本程序完全免费,如使用过程出现任何问题请联系我。</a>
+                    <a href="javascript:;" class="list-group-item">5. 如果你有更好的建议也可以联系我。</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/js/js-cookie.js"></script>
+    <script src="/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+
+</html>
