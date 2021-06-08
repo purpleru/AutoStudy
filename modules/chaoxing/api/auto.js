@@ -213,6 +213,14 @@ class Auto {
 
         this.term_course = term ? term : this.term_course[0];
 
+        if (typeof this.term_course === 'string') {
+            console.log('刷取失败,获取课程数据失败');
+            return {
+                code: 500,
+                msg: '获取数据出错'
+            }
+        }
+
         // 获取学期课程信息
         await getAllCourseID(this.term_course['course'], this.options);
 

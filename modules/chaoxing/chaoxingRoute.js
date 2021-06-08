@@ -57,7 +57,8 @@ module.exports = async(req, res) => {
     } catch (err) {
         console.log(err);
         return res.json({
-            code: 500
+            code: 500,
+            msg: '服务器内部错误'
         })
     }
 
