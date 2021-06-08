@@ -16,15 +16,18 @@ async function createUser(createParam, options = {}) {
     try {
         var result = await model.findOne({ user: createParam['user'] });
 
-        if (!result) {
-            result = await model.create(createParam);
+        if (result) {
+            return await model.updateOne({
+                user: createParam['user']
+            }, createParam)
+        } else {
+            return await model.create(createParam);
         }
     } catch (err) {
         console.log(err);
         console.log('保存用户失败' + createParam['user']);
     }
-    return result;
-}
 
+}
 
 module.exports = { createUser, User, userMod };

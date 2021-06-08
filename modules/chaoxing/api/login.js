@@ -25,11 +25,11 @@ module.exports = async(params, options = {}) => {
         }
     }
 
-    var password = CryptoJS.enc.Utf8.parse(password);
+    var pwd = CryptoJS.enc.Utf8.parse(password);
     var { data, cookie } = await request('http://passport2.chaoxing.com/fanyalogin', 'post', {
         fid: options.fid || '-1',
         uname: uname,
-        password: CryptoJS.enc.Base64.stringify(password),
+        password: CryptoJS.enc.Base64.stringify(pwd),
         refer: encodeURIComponent('http://i.chaoxing.com'),
         t: true,
         forbidotherlogin: 0
