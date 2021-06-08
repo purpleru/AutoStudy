@@ -11,7 +11,7 @@ var queue = {};
 
 module.exports = async(params, options) => {
 
-    var { uname } = params;
+    var { uname, term } = params;
 
     var user = await ChaoXing.findOne({ user: uname });
 
@@ -29,7 +29,7 @@ module.exports = async(params, options) => {
     });
 
     // // 2020年秋季学期
-    test.play();
+    test.play(term);
 
     return {
         msg: '提交成功',
