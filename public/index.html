@@ -3,27 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
     <title>自动学习 - 快速完成学习任务!</title>
     <link rel="stylesheet" href="/css/bootstrap-3.3.7-dist/css/bootstrap.css">
     <style>
         body {
             background-color: #f8f8f8;
         }
-        
+
         #main {
             max-width: 550px;
             margin: 0 auto;
             background-color: #fff;
         }
-        
+
         #loginSuccess button:first-child {
             margin-bottom: 10px;
         }
-        
+
         .app {
             padding: 0 15px;
         }
+
         /* .radio-inline input[type=radio]::before {
             display: block;
             content: '';
@@ -42,12 +44,13 @@
         <nav class="navbar navbar-default">
 
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" onclick="alert('欢迎使用自动学习Assistant!')" data-toggle="collapse" data-target="#navs" aria-expanded="false">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                    </button>
+                <button type="button" class="navbar-toggle collapsed" onclick="alert('欢迎使用自动学习Assistant!')"
+                    data-toggle="collapse" data-target="#navs" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand" href="./">自动学习</a>
             </div>
 
@@ -90,7 +93,8 @@
                             <label for="user">账号：</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                <input type="text" class="form-control" placeholder="请输入账号" name="user" id="user" value="">
+                                <input type="text" class="form-control" placeholder="请输入账号" name="user" id="user"
+                                    value="">
                             </div>
 
                         </div>
@@ -98,18 +102,32 @@
                             <label for="password">密码：</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                <input type="password" id="password" class="form-control" placeholder="密码" name="pwd" value="">
+                                <input type="password" id="password" class="form-control" placeholder="密码" name="pwd"
+                                    value="">
                             </div>
                         </div>
 
-                        <div class="form-group my">
+
+
+                        <div class="form-group" style="display: none;">
+                            <label for="semester">刷取学期：</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-tasks"></span>
+                                </span>
+                                <select class="form-control" id="semester" name="semester">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label>登陆平台：</label>
                             <label class="radio-inline">
                                 <input type="radio" name="type" checked value="lemon"> 柠檬学堂
-                              </label>
+                            </label>
                             <label class="radio-inline">
                                 <input type="radio" name="type" value="chaoxing"> 超星（学习通）
-                              </label>
+                            </label>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block">登 陆</button>
@@ -134,7 +152,8 @@
                 </div>
                 <div class="list-group">
                     <a href="javascript:;" class="list-group-item">1. 使用本程序能够帮助你快速完成学习任务。</a>
-                    <a href="http://site.wencaischool.net/gzcjzyxy/console/" class="list-group-item">2. 如果忘记密码可以前往 <ins>官方网站</ins> 进行密码重置。</a>
+                    <a href="http://site.wencaischool.net/gzcjzyxy/console/" class="list-group-item">2. 如果忘记密码可以前往
+                        <ins>官方网站</ins> 进行密码重置。</a>
                     <a href="javascript:;" class="list-group-item">3. 严禁倒卖或贩卖本程序。</a>
                     <a href="javascript:;" class="list-group-item">4. 使用本程序完全免费,如使用过程出现任何问题请联系我。</a>
                     <a href="javascript:;" class="list-group-item">5. 如果你有更好的建议也可以联系我。</a>
