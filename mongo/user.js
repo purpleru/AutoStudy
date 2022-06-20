@@ -3,8 +3,11 @@ const mongoose = require('mongoose');
 const userMod = new mongoose.Schema({
     user: String,
     password: String,
-    cookie: String,
-    userInit: Object
+    cookie: Object,
+    userInit: Object,
+    urlHost: String,
+    baseURL: String,
+    isQRZ: Boolean
 });
 
 const User = mongoose.model('User', userMod, 'user');
@@ -19,7 +22,7 @@ async function createUser(createParam, options = {}) {
         if (result) {
             return await model.updateOne({
                 user: createParam['user']
-            }, createParam)
+            }, createParam);
         } else {
             return await model.create(createParam);
         }
@@ -29,5 +32,6 @@ async function createUser(createParam, options = {}) {
     }
 
 }
+
 
 module.exports = { createUser, User, userMod };

@@ -19,11 +19,13 @@
 ## 运行
 
 - 拉取本项目，使用 `npm install` 下载依赖包。
+- 安装MongoDB数据库，确保MongoDB服务正在运行。
 - 使用 `node` 命令启动根目录下的 `servr.js` 文件。
 - 浏览器访问 `http://127.0.0.1:3001`  默认端口为 `3001`
 
-[gif预览](http://www.wgudu.com/wp-content/uploads/Rec-0002.gif)
 
-- 图片展示：
+## 项目效果
+
+![](http://www.wgudu.com/wp-content/uploads/Rec-0002.gif)
 
 ![](upload/img.jpg)

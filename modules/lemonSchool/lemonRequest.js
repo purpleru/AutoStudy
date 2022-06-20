@@ -5,7 +5,6 @@ const setCookie = require('set-cookie-parser');
 // 加解密
 const { encrypt, decrypt, Encrypt } = require('./crypto');
 
-
 function createRequest(url = '', method = 'get', data = {}, options) {
     var options = options || {},
         cookie = options['cookie'],
@@ -21,10 +20,13 @@ function createRequest(url = '', method = 'get', data = {}, options) {
         }
     }
 
+    console.log(data);
+
     // 参数是否需要加密 默认:true
     if (!options['noCrypto']) {
         data = encrypt(data);
     }
+
 
 
     // Cookie
@@ -38,54 +40,55 @@ function createRequest(url = '', method = 'get', data = {}, options) {
 
     method = method.toLowerCase();
 
-    if (url.includes('site.wencaischool.net')) {
-        headers['Host'] = 'site.wencaischool.net';
-        headers['Origin'] = 'http://site.wencaischool.net';
-    } else {
-        headers['Host'] = 'learning.wencaischool.net';
-        headers['Origin'] = 'http://learning.wencaischool.net';
-    }
+    const urlInfo = new URL(url);
+
+    headers['Host'] = urlInfo.host;
+    headers['Origin'] = urlInfo.origin;
 
     if (method === 'post') {
         headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
         headers['X-Requested-With'] = 'XMLHttpRequest'
     }
     if (method === 'get') {
-        headers['Origin'] = 'http://site.wencaischool.net/gzcjzyxy/console/';
         headers['Upgrade-Insecure-Requests'] = '1'
     }
 
-    return new Promise(function(resolve, reject) {
+    console.log(headers);
+    console.log(url);
+
+
+
+    return new Promise(function (resolve, reject) {
         ajax({
             url: url,
             method: method,
             data: data,
             headers: headers,
-            success: function(response, xhr) {
+            success: function (response, xhr) {
+                console.log(typeof response);
+                
                 var container = {};
-
                 if (response['data']) {
                     response['data'] = decrypt(response['data']);
                 }
 
-                response instanceof Object ? container = {...response } : container['data'] = response;
+                response instanceof Object ? container = { ...response } : container['data'] = response;
 
                 // set cookie parse
                 container['cookie'] = xhr.responseHeaders['set-cookie'] ? setCookie.parse(xhr.responseHeaders['set-cookie'], {
                     decodeValues: true, // Calls dcodeURIComponent on each value - default: true
-                    map: false, // Return an object instead of an array - default: false
+                    map: true, // Return an object instead of an array - default: false
                     silent: false, // Suppress the warning that is loged when called on a request instead of a response - default: false
-                }) : [];
-
+                }) : {};
                 resolve(container);
             },
             // http状态码错误
-            error: function(err, xhr) {
-                console.log(xhr);
+            error: function (err, xhr) {
+                // console.log(xhr);
                 reject(err);
             },
             // http解析错误
-            onerror: function(err) {
+            onerror: function (err) {
                 reject(err);
             }
         });

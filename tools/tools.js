@@ -41,8 +41,21 @@ function cookieParse(cookieArr) {
     return cookies;
 }
 
+function findKey(target, keyName, flags) {
+
+    var reg = new RegExp(keyName, flags)
+
+    for (var key in target) {
+        if (reg.test(key)) return target[key];
+    }
+
+    return null;
+}
+
+
 module.exports = {
     deURI,
     cookieStringify,
-    cookieParse
+    cookieParse,
+    findKey
 }

@@ -5,13 +5,21 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-				"serve":"node ./server.js"
+        "serve": "node ./server.js"
     },
-    "keywords": ["柠檬学堂","柠檬文才","超星学习通","学习通","大专刷课程","刷课程"],
+    "keywords": [
+        "柠檬学堂",
+        "柠檬文才",
+        "超星学习通",
+        "学习通",
+        "大专刷课程",
+        "刷课程"
+    ],
     "author": "孤独的小丑",
     "license": "ISC",
     "dependencies": {
         "cheerio": "^1.0.0-rc.9",
+        "cookie": "^0.5.0",
         "cookie-parser": "^1.4.5",
         "crypto-js": "^4.0.0",
         "express": "^4.17.1",
