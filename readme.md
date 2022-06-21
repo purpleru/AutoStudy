@@ -26,7 +26,7 @@
 
 ## 项目效果
 
-![](http://www.wgudu.com/wp-content/uploads/Rec-0002.gif)
+[点我前往查看GIF动态演示图](http://www.wgudu.com/wp-content/uploads/Rec-0002.gif)
 
 ![](./upload/img.jpg)
 
