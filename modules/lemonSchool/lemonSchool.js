@@ -8,8 +8,6 @@ const { deURI, cookieParse, findKey } = require('../../tools/tools');
 
 const { createUser } = require('../../mongo/user');
 
-const { encrypt, Encrypt } = require('./crypto');
-
 // 学习平台登陆
 function learningLogin(params, options) {
     return request(`${options.urlHost}/login.jsp`, 'post', {
@@ -190,8 +188,7 @@ const route = {
             'type_code': 'progress',
             'item_id': params['item_id'] //科目项id
         }, options);
-        console.log(result);
-
+        // console.log(result);
         return request(`${options.urlHost}/learning.action?req=submitScormAndHistorySave`, 'post', data, options);
 
     }

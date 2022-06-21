@@ -112,10 +112,6 @@ if (loginStatus) {
     display('欢迎 ' + loginStatus.user_name + ' 再次使用本程序!', true);
 }
 
-console.log(userInit);
-console.log(loginStatus);
-
-
 function getSemester(type) {
     var url;
 

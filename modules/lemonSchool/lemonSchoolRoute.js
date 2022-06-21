@@ -20,7 +20,6 @@ module.exports = async (req, res) => {
         });
     }
 
-
     try {
         const baseURL = req.cookies.baseURL || 'http://site.wencaischool.net/gzcjzyxy',
             urlHost = req.cookies.urlHost || 'http://learning.wencaischool.net',
@@ -29,9 +28,6 @@ module.exports = async (req, res) => {
         delete req.cookies.baseURL;
         delete req.cookies.urlHost;
         delete req.cookies.userInfo;
-
-        console.log(userInfo);
-
 
         var result = route && await route({
             ...req.query
@@ -43,7 +39,6 @@ module.exports = async (req, res) => {
         });
     } catch (err) {
         console.log(err);
-
         return res.send(err);
     }
 

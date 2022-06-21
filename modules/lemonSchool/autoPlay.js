@@ -1,6 +1,6 @@
 const { User } = require('../../mongo/user');
 
-const { route, cookieParse, deURI } = require('./lemonSchool');
+const { route, deURI } = require('./lemonSchool');
 
 const { semester, subject, subjectitem, play } = route;
 
@@ -30,12 +30,12 @@ function filterData(data) {
 Array.prototype.filterData = filterData;
 
 // 参数别乱传，懒得写判断
-async function processing(options = {}) {
+async function processing(params = {}, options = {}) {
 
-    var { program, data, cookie } = options, msg = options['msg'] || '获取某个信息异常';
+    var { program, data } = params, msg = params['msg'] || '获取某个信息异常';
 
     try {
-        var result = await program(data || {}, { cookie: cookie });
+        var result = await program(data || {}, options);
         if (result['code'] === 1000) {
             return result['data'];
         } else {
@@ -52,9 +52,10 @@ async function processing(options = {}) {
 }
 
 class Auto {
-    constructor(user = {}, callback) {
-        this.user = user;
-        this.cookie = deURI(cookieParse(this.user['cookie']));
+    constructor(params, callback) {
+        this.user = params.user || {};
+        this.options = params.options || {};
+        this.cookie = deURI(this.options.cookie);
         this.test = {};
         this.callback = callback;
         this.subjectItem = 0;
@@ -65,9 +66,8 @@ class Auto {
         var result = await processing({
             program: semester,
             data: '',
-            cookie: this.cookie,
             msg: '获取学期失败'
-        });
+        }, this.options);
 
         return result.filterData({ termCode: 'termId', term: 'term', isCurrentTerm: 'currentTerm' });
     }
@@ -79,11 +79,10 @@ class Auto {
             data: {
                 termId: termId
             },
-            cookie: this.cookie,
             msg: `获取学期${termId}课程失败`
-        });
+        }, this.options);
 
-        return result['courseInfoList'].filterData({ courseName: 'courseName', relCourseId: 'course_id' }).filter(value => value['course_id'] > 0);
+        return result['courseInfoList'].filterData({ courseName: 'courseName', courseId: 'course_id' }).filter(value => value['course_id'] > 0);
     }
 
     // 获取课程所有没有观看完成项
@@ -93,9 +92,8 @@ class Auto {
             data: {
                 course_id: course_id
             },
-            cookie: this.cookie,
             msg: `获取课程${course_id}项失败`
-        });
+        }, this.options);
         return result['listCourseLesson'] && result['listCourseLesson'].filterData({
             courseId: 'courseId',
             chapterName: 'chapterName',
@@ -104,8 +102,9 @@ class Auto {
             useEnergyNum: 'useEnergyNum',
             lessonName: 'item_name',
             courseName: 'courseName',
-            isFinish: 'isFinish'
-        }).filter(value => value['timeLen'] > 0 && !value['isFinish']);
+            isFinish: 'isFinish',
+            isChapter: 'isChapter'
+        }).filter(value => value['timeLen'] > 0 && !value['isFinish'] && value['isChapter'] != true);
     }
 
     async play(query) {
@@ -115,10 +114,10 @@ class Auto {
                 course_id: query['courseId'],
                 item_id: query['item_id'],
                 time: query['timeLen']
-            }, { cookie: this.cookie });
+            }, this.options);
         } catch (err) {
             console.log(err);
-            var msg = `刷取视频${query['item_id']}失败，课程ID:${ query['courseId']}`;
+            var msg = `刷取视频${query['item_id']}失败，课程ID:${query['courseId']}`;
             console.log(msg);
             return { code: 500, message: msg };
         }
@@ -230,7 +229,7 @@ class Auto {
 // 刷取的队列,防止多次提交造成服务器压力大。
 var queue = {};
 
-async function autoPlay(query) {
+async function autoPlay(query, options) {
 
     var { user: zrUser, term } = query || {};
 
@@ -242,7 +241,10 @@ async function autoPlay(query) {
         return { code: 400, msg: '当前账号正在刷取中,请勿多次提交!' }
     } else { queue[zrUser] = zrUser }
 
-    var result = new Auto(user, function() {
+    var result = new Auto({
+        "user": user,
+        "options": options
+    }, function () {
         // 利用闭包操作,成功后删除已经刷取完毕的账号
         console.log(`账号:[${zrUser}]课程刷取完毕!`);
         delete queue[zrUser];

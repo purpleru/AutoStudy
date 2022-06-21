@@ -20,7 +20,7 @@ function createRequest(url = '', method = 'get', data = {}, options) {
         }
     }
 
-    console.log(data);
+    // console.log(data);
 
     // 参数是否需要加密 默认:true
     if (!options['noCrypto']) {
@@ -53,10 +53,8 @@ function createRequest(url = '', method = 'get', data = {}, options) {
         headers['Upgrade-Insecure-Requests'] = '1'
     }
 
-    console.log(headers);
-    console.log(url);
-
-
+    // console.log(headers);
+    // console.log(url);
 
     return new Promise(function (resolve, reject) {
         ajax({
@@ -65,7 +63,6 @@ function createRequest(url = '', method = 'get', data = {}, options) {
             data: data,
             headers: headers,
             success: function (response, xhr) {
-                console.log(typeof response);
                 
                 var container = {};
                 if (response['data']) {
