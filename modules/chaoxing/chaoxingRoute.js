@@ -55,7 +55,7 @@ module.exports = async (req, res) => {
     try {
         var result = await cx(req.query, { cookie: req.cookies })
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         return res.json({
             code: 500,
             msg: '服务器内部错误'
@@ -74,6 +74,13 @@ module.exports = async (req, res) => {
         setCookie.call(res, result['cookie']);
         delete result['cookie'];
     }
-    res.json(Object.assign(result, { code: result.code || 200 }))
+
+    if (typeof result === 'string') {
+        res.send(result);
+    } else {
+        res.json(Object.assign(result, { code: result.code || 200 }));
+
+    }
+
 
 }
