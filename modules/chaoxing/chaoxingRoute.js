@@ -31,7 +31,7 @@ function setCookie(cookies) {
     });
 }
 
-module.exports = async(req, res) => {
+module.exports = async (req, res) => {
     const program = req.path.replace(/^\//, '');
 
     var cx = route[program]

@@ -1,12 +1,12 @@
 const request = require('../chaoxingRequest');
 
-const CryptoJS = require('crypto-js');
-
 const { cookieParse, cookieStringify } = require('../../../tools/tools');
 
-const { createUser, ChaoXing } = require('../../../mongo/chaoxing');
+const { createUser } = require('../../../mongo/chaoxing');
 
-module.exports = async(params, options = {}) => {
+const { encrypt, decrypt } = require('../crypto');
+
+module.exports = async (params, options = {}) => {
 
     var { cookie: cookies } = options;
 
@@ -25,15 +25,15 @@ module.exports = async(params, options = {}) => {
         }
     }
 
-    var pwd = CryptoJS.enc.Utf8.parse(password);
     var { data, cookie } = await request('http://passport2.chaoxing.com/fanyalogin', 'post', {
-        fid: options.fid || '-1',
+        fid: options.fid || -1,
         uname: uname,
-        password: CryptoJS.MD5("qq4549898").toString(),
+        password: encrypt(password, 'u2oh6Vu^HWe40fj'),
         refer: encodeURIComponent('http://i.chaoxing.com'),
         t: true,
-        forbidotherlogin: 0
-    });
+        forbidotherlogin: 0,
+        validate: ''
+    }, options);
 
     if (!data.status) {
         return {
@@ -59,7 +59,7 @@ module.exports = async(params, options = {}) => {
             userInit: {
                 login_time: Date.now()
             }
-        }, { model: ChaoXing });
+        });
 
         return Promise.resolve({
             msg: '登陆成功',
