@@ -3,8 +3,8 @@ const route = {
     course: require('./api/course'),
     // 获取课程列表项
     subject: require('./api/courseList'),
-    // 获取视频信息
-    studentstudy: require('./api/studentstudy'),
+    // 获取附件任务信息
+    attachment: require('./api/attachment'),
     // 保存视频状态 (完成视频任务)
     savestatus: require('./api/saveStatus'),
     // 登陆
@@ -55,7 +55,7 @@ module.exports = async (req, res) => {
     try {
         var result = await cx(req.query, { cookie: req.cookies })
     } catch (err) {
-        // console.log(err);
+        console.log(err);
         return res.json({
             code: 500,
             msg: '服务器内部错误'

@@ -11,13 +11,17 @@ function createRequest(url = '', method = 'get', data = {}, options = {}) {
         'accept-language': 'zh-CN'
     };
 
+    if (options.headers instanceof Object) {
+        Object.assign(headers, options.headers);
+    }
+
     if (options.cookie instanceof Object) {
         headers.cookie = cookieStringify(options.cookie);
     } else if (typeof options.cookie === 'string') headers.cookie = options.cookie;
 
     if (url.includes('mooc1.chaoxing.com')) {
         headers['Host'] = 'mooc1.chaoxing.com';
-        // headers['Upgrade-Insecure-Requests'] = '1';
+        headers['Upgrade-Insecure-Requests'] = '1';
     } else if (url.includes('passport2.chaoxing.com')) {
         headers['Host'] = 'passport2.chaoxing.com';
         headers['Origin'] = 'https://passport2.chaoxing.com';
