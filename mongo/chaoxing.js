@@ -27,5 +27,6 @@ async function createUser(docs) {
 }
 
 module.exports = {
-    createUser
+    createUser,
+    ChaoXing
 }

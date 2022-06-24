@@ -34,4 +34,4 @@ async function createUser(createParam) {
 
 }
 
-module.exports = { createUser };
+module.exports = { createUser, User };

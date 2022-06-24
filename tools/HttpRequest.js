@@ -1,7 +1,7 @@
 const url = require('url');
 
 // 用于调试
-const isDebug = true;
+const isDebug = false;
 
 function HttpRequest() {
     this.responseText = '';

@@ -3,7 +3,7 @@ const request = require('../chaoxingRequest');
 // 和jQuery一样的选择器
 const cheerio = require('cheerio');
 
-module.exports = async function getCourseLists_v1(params, options) {
+module.exports = async function (params, options) {
     var { courseId, chapterId, clazzid, personid } = params;
 
     var result = await request('http://mooc1.chaoxing.com/mycourse/studentstudycourselist', 'get', {
@@ -27,7 +27,8 @@ module.exports = async function getCourseLists_v1(params, options) {
             section_name: $(element).attr('title'),
             data: data.match(/\((.+)\)/)[1].replace(/'/g, '').split(','),
             chapter_name: posCatalog_select.find('span').attr('title'),
-            id: posCatalog_select.attr('id')
+            id: posCatalog_select.attr('id'),
+            isPass: $(element).siblings('.prevTips').hasClass('icon_Completed')
         });
 
     });

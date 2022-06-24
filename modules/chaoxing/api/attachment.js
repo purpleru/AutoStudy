@@ -4,7 +4,7 @@ const host = 'http://mooc1.chaoxing.com';
 
 const cheerio = require('cheerio');
 
-async function getResource(params = {}, options = {}) {
+async function attachment(params = {}, options = {}) {
 
     /*
       courseId: 219802873
@@ -42,10 +42,14 @@ async function getResource(params = {}, options = {}) {
             mArgRule = /mArg\s*=\s*{(.+)}/;
         documents.forEach(function (doc) {
             var mArg = doc.data.match(mArgRule) || [''];
-            resources.push(JSON.parse(mArg[0].replace(/mArg\s*=\s*/, '') || '{}'));
+            if (doc.data.length > 0) {
+                resources.push(JSON.parse(mArg[0].replace(/mArg\s*=\s*/, '') || '{}'));
+            }
         });
-        return resources;
+        return {
+            attachments: resources
+        };
     });
 }
 
-module.exports = getResource;
+module.exports = attachment;

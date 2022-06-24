@@ -5,12 +5,12 @@ const route = {
     subject: require('./api/courseList'),
     // 获取附件任务信息
     attachment: require('./api/attachment'),
-    // 保存视频状态 (完成视频任务)
+    // 保存任务状态
     savestatus: require('./api/saveStatus'),
     // 登陆
     login: require('./api/login'),
-    // auto play
-    auto: require('./api/auto')
+    // 自动完成
+    auto: require('./api/automatic')
 }
 
 function setCookie(cookies) {
@@ -55,7 +55,7 @@ module.exports = async (req, res) => {
     try {
         var result = await cx(req.query, { cookie: req.cookies })
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         return res.json({
             code: 500,
             msg: '服务器内部错误'
