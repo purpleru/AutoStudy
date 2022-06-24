@@ -1,6 +1,3 @@
-// 获取学期课程
-const course = require('./course');
-
 const getCourseList = require('./courseList');
 
 const getAttachments = require('./attachment');
@@ -13,10 +10,10 @@ var queue = {};
 
 module.exports = async (params, options) => {
 
-    var { uname, term, courseId, clazzid, personid } = params;
+    var { uname, courseId, clazzid, personid } = params;
     console.log(params);
 
-    if (!(courseId || clazzid || personid)) {
+    if (!(courseId && clazzid && personid)) {
         return {
             code: 400,
             msg: '参数不能为空'

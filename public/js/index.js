@@ -9,7 +9,7 @@ function login(data) {
             login_name: user.val(),
             login_pwd: password.val(),
             login_type: getRadioVal('type'),
-            userInfo: queryString(Cookies.get('userInfo')),
+            userInfo: queryString.parse(Cookies.get('userInfo')),
             schoolInfo: {
                 baseURL: $schoolOption.attr('data-baseURL'),
                 urlHost: $placeOption.attr('data-urlHost'),
@@ -34,22 +34,31 @@ function login(data) {
 
 var user = $('#user'),
     password = $('#password'),
-    msg = $('#msg');
-
-function queryString(str) {
-    if (!str) return null;
-    var strArr = str.split('&'),
-        cookies = {};
-    strArr.forEach(function (item) {
-        var itemArr = item.split('='),
-            itemName = itemArr[0],
-            itemValue = itemArr[1];
-        if (itemName) {
-            cookies[itemName] = window.decodeURIComponent(itemValue || '');
+    msg = $('#msg'),
+    queryString = {
+        parse: function (str) {
+            if (!str) return null;
+            var strArr = str.split('&'),
+                cookies = {};
+            strArr.forEach(function (item) {
+                var itemArr = item.split('='),
+                    itemName = itemArr[0],
+                    itemValue = itemArr[1];
+                if (itemName) {
+                    cookies[itemName] = window.decodeURIComponent(itemValue || '');
+                }
+            });
+            return cookies;
+        },
+        stringify: function (target) {
+            var ifys = [];
+            for (var key in target) {
+                var val = target[key] || '';
+                ifys.push(key + '=' + encodeURIComponent(val));
+            }
+            return ifys.join('&');
         }
-    });
-    return cookies;
-}
+    };
 
 function display(msgStr, isShow) {
     user.prop('disabled', isShow || false);
@@ -88,7 +97,12 @@ var loginStatus;
 
 switch (userInit['login_type']) {
     case 'chaoxing':
-        loginStatus = Cookies.get('UID');
+        var UID = Cookies.get('UID');
+        if (UID) {
+            loginStatus = {
+                user_name: UID
+            };
+        }
         $('input[value=chaoxing]').prop('checked', 'checked');
         break;
     case 'lemon':
@@ -118,7 +132,7 @@ function getSemester(type) {
     if (type === 'lemon') {
         url = '/lemonSchool/semester';
     } else {
-        url = 'chaoxing/course?type=link';
+        url = 'chaoxing/course';
     }
 
     var data = sessionStorage.getItem('data');
@@ -133,7 +147,8 @@ function getSemester(type) {
 
 
     function success(data) {
-        if (data['code'] === 1000 || Array.isArray(data)) {
+
+        if (data['code'] === 1000 || Array.isArray(data) || data['code'] === 200) {
 
             sessionStorage.setItem('data', JSON.stringify(data));
 
@@ -179,10 +194,13 @@ function getSemester(type) {
     }
 
     function chaoxing(data) {
-        $.each(data, function (index, item) {
+        var courseLists = data['data'];
+        $('#semester').parents('.form-group').children('label').text('刷取课程:');
+        $.each(courseLists, function (index, item) {
             var option = document.createElement('option');
-            option.innerText = item.term_name;
-            option.value = item.term_name;
+            option.innerText = item.name;
+            option.value = JSON.stringify(item);
+            option.setAttribute('data-info', JSON.stringify(item));
             $('#semester').append(option);
         });
 
@@ -207,13 +225,20 @@ var events = {
 
         var login_type = getUserInit('login_type'),
             url, term = $('#semester').val() || '';
+        console.log(term);
 
         switch (login_type) {
             case 'lemon':
                 url = '/lemonSchool/autoplay?user=' + user.val() + '&term=' + term;
                 break;
             case 'chaoxing':
-                url = '/chaoxing/auto?uname=' + user.val() + '&term=' + term;
+                var info = JSON.parse(term);
+                url = '/chaoxing/auto?' + queryString.stringify({
+                    uname: user.val(),
+                    courseId: info['courseid'],
+                    clazzid: info['clazzid'],
+                    personid: info['personid']
+                });
                 break;
         }
 
