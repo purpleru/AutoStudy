@@ -1,6 +1,6 @@
 {
     "name": "AutoStudy",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "这是一个能够快速完成你的大专课程的项目，目前实现了两个课程平台（超星学习通和柠檬学堂）",
     "main": "index.js",
     "scripts": {
