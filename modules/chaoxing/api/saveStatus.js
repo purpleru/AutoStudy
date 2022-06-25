@@ -28,23 +28,26 @@ async function saveStatus(params, options) {
         otherInfo = params['otherInfo'],
         jobid = params['jobid'],
         userid = params['userid'],
-        enc = `[${clazzId}][${userid}][${jobid}][${objectId}][${playTime}][d_yHJ!$pdA~5][${playTime}][${clipTime}]`;
+        enc = `[${clazzId}][${userid}][${jobid}][${objectId}][${playTime}][d_yHJ!$pdA~5][${duration * 1000}][${clipTime}]`;
+
+    // '[clazzId][userid][jobid][objectId][已播放毫秒]["d_yHJ!$pdA~5"][duration * 1000][0_endTime]'
+    // "[59093676][57949954][1582641044173926][211ceda28b40271afa2c8121f51d845f][9000][d_yHJ!$pdA~5][1476000][0_1476]"
 
     return request(`${params['reportUrl']}/${params['dtoken']}`, 'get', {
         clazzId: clazzId,
-        playingTime: duration,
+        playingTime: playTime / 1000,
         duration: duration,
         clipTime: clipTime,
         objectId: objectId,
         otherInfo: otherInfo,
         jobid: jobid,
         userid: userid,
-        isdrag: '0',
+        isdrag: '4',
         view: 'pc',
         enc: md5(enc),
         rt: params['rt'] || '0.9',
         dtype: 'Video',
-        _t: new Date().getTime()
+        _t: Date.now()
     }, options);
 }
 
