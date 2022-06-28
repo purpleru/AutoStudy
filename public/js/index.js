@@ -310,10 +310,10 @@ function lemonInit(el) {
         $container.empty();
         $.each(schoolLists, function (index, item) {
             var $option = $('<option></option>');
-            $option.prop('value', item.homeUrl);
-            $option.html(item.schoolName);
-            $option.attr('data-baseURL', item.homeUrl);
-            $option.prop('selected', item.homeUrl === schoolInfo.baseURL);
+            $option.prop('value', item.value);
+            $option.html(item.text);
+            $option.attr('data-baseURL', item.value);
+            $option.prop('selected', item.value === schoolInfo.baseURL);
             $container.append($option);
         });
     }
@@ -344,12 +344,9 @@ function lemonInit(el) {
         var urlHost = Cookies.get('urlHost');
         $.get('/lemonSchool/schoollist', {
             place_id: $option.prop('value'),
-            current_page: 1,
-            page_size: 666,
             urlHost: urlHost
         }, function (data) {
             var schoolLists = data['data'];
-
             if (data.code === 1000) {
                 renderSchoolLists($school, schoolLists);
                 localStorage.setItem('schoolLists', JSON.stringify(schoolLists));
@@ -402,7 +399,12 @@ $(function () {
         if (loginPlatform !== 'lemon') {
             $('#entry').fadeOut();
         } else {
-            $('#entry').fadeIn();
+            if ($('#place').prop('value')) {
+                $('#entry').fadeIn();
+            } else {
+                init();
+            }
+
         }
     });
 

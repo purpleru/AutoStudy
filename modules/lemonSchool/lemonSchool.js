@@ -160,7 +160,7 @@ const route = {
     schoollist: function (params) {
         const urlHost = params.urlHost || 'www.wencaischool.net/openlearning';
         delete params.urlHost;
-        return request(`${urlHost}/school_info.action?req=getSchoolInfoList`, 'post', params);
+        return request(`${urlHost}/school_info.action`, 'post', params);
     },
 
     // 完成视频播放
