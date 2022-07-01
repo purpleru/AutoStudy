@@ -231,6 +231,10 @@ class Auto {
 
         if (data.isPassed) {
             console.log(`当前 [${chapter_name}] [${section_name}] 中的 [${property.name}] 保存状态成功`);
+        }else{
+            console.log(`当前 [${chapter_name}] [${section_name}] 中的 [${property.name}] 附件状态，没有检测到通过`);
+            console.log(`正在重新尝试保存 [${chapter_name}] [${section_name}] 中的 [${property.name}] 附件状态任务`);
+            count--;
         }
 
         count++;

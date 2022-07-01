@@ -35,7 +35,7 @@ function createRequest(url = '', method = 'get', data = {}, options = {}) {
         headers['content-type'] = 'application/x-www-form-urlencoded';
         headers['X-Requested-With'] = 'XMLHttpRequest';
     }
-
+    // console.log(data);
     return asynAjax({
         url: url,
         method: method,
