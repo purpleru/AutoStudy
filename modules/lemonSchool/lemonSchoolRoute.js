@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
     }
 
     try {
-        const baseURL = req.cookies.baseURL || 'http://site.wencaischool.net/gzcjzyxy',
+        const baseURL = (req.cookies.baseURL && req.cookies.baseURL.replace(/\/console\/*/i, '')) || 'http://site.wencaischool.net/gzcjzyxy',
             urlHost = req.cookies.urlHost || 'http://learning.wencaischool.net',
             userInfo = req.cookies.userInfo;
 

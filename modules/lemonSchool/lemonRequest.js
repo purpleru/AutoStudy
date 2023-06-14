@@ -82,7 +82,7 @@ function createRequest(url = '', method = 'get', data = {}, options) {
             // http状态码错误
             error: function (err, xhr) {
                 // console.log(xhr);
-                reject(err);
+                reject(xhr);
             },
             // http解析错误
             onerror: function (err) {

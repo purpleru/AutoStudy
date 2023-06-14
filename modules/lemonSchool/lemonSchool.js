@@ -67,7 +67,7 @@ const route = {
                     txtLoginName: user,
                     txtPassword: pwd
                 };
-
+                
             url.searchParams.set('req', 'login');
 
             url.pathname = url.pathname + '/index.action';
@@ -125,7 +125,12 @@ const route = {
             }
 
         } catch (err) {
-            // console.log(err);
+            if(err.status===404){
+                return {
+                    code:404,
+                    msg:'请求出错误，您选择的学校已经不在柠檬平台服务范围内！'
+                }
+            }
             throw new Error(err);
         }
 
