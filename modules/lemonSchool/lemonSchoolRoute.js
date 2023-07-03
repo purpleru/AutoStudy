@@ -20,6 +20,14 @@ module.exports = async (req, res) => {
         });
     }
 
+    if (req.headers.baseurl) {
+        req.cookies.baseURL = req.headers.baseurl;
+    }
+
+    if (req.headers.urlhost) {
+        req.cookies.urlHost = req.headers.urlhost;
+    }
+
     try {
         const baseURL = (req.cookies.baseURL && req.cookies.baseURL.replace(/\/console\/*/i, '')) || 'http://site.wencaischool.net/gzcjzyxy',
             urlHost = req.cookies.urlHost || 'http://learning.wencaischool.net',
