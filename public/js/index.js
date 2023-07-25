@@ -181,7 +181,6 @@ function getSemester(type) {
         }
 
         $.each(arr, function (index, item) {
-            console.log(item);
             var option = document.createElement('option');
             option.innerText = '第' + item.term + '学期';
             option.selected = item.isCurrentTerm;
