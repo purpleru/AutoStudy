@@ -316,6 +316,7 @@ function lemonInit(el) {
 
     function renderPlaces($container, places) {
         $container.empty();
+        $container.append($('<option value="all" data-urlHost="http://learning.wencaischool.net/openlearning">全部</option>'));
         $.each(places, function (index, item) {
             var $option = $('<option></option>');
             $option.prop('value', item.placeId);

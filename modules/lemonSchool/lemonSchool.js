@@ -64,13 +64,15 @@ const route = {
         try {
             var url = new URL(options.baseURL),
                 data = {
-                    txtLoginName: user,
-                    txtPassword: pwd
+                    login_name: user,
+                    password: pwd,
+                    user_verification_code:'',
+                    snowFlake:Date.now()
                 };
                 
             url.searchParams.set('req', 'login');
 
-            url.pathname = url.pathname + '/index.action';
+            url.pathname = url.pathname + '/login.action';
 
             var result = await request(url.toString(), 'post', data);
 
@@ -163,7 +165,7 @@ const route = {
 
     // 学校列表
     schoollist: function (params) {
-        const urlHost = params.urlHost || 'www.wencaischool.net/openlearning';
+        const urlHost = params.urlHost || 'http://learning.wencaischool.net/openlearning';
         delete params.urlHost;
         return request(`${urlHost}/school_info.action`, 'post', params);
     },
